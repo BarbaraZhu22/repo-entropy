@@ -31,14 +31,16 @@ function step(msg: string) {
 
 function banner() {
   console.log();
-  console.log(`  \uD83E\uDDEC Repo Entropy v${pkg.version}`);
+  console.log(`  \uD83E\uDDEC Repo Entropy Analyzer v${pkg.version}`);
+  console.log(`  experimental entropy heuristics`);
   console.log(`  ${DIVIDER}`);
   console.log(`  Analyzing structural health of your repository...\n`);
 }
 
 function showHelp() {
   console.log(`
-  \uD83E\uDDEC Repo Entropy v${pkg.version}
+  \uD83E\uDDEC Repo Entropy Analyzer v${pkg.version}
+  experimental entropy heuristics
 
   Scan a repository and generate a code entropy report.
 

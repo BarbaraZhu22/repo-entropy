@@ -1,7 +1,7 @@
 {
   "name": "repo-entropy",
   "version": "0.1.0",
-  "description": "CLI tool that scans a repository and generates a markdown report describing code entropy problems caused by AI-generated code",
+  "description": "Experimental CLI for analyzing repository entropy and structural complexity",
   "main": "dist/index.js",
   "bin": {
     "repo-entropy": "./dist/index.js"

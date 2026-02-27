@@ -1,5 +1,7 @@
 # repo-entropy
 
+> v0.1 — experimental entropy heuristics
+
 [![npm version](https://img.shields.io/npm/v/repo-entropy)](https://www.npmjs.com/package/repo-entropy)
 [![license](https://img.shields.io/npm/l/repo-entropy)](./LICENSE)
 
