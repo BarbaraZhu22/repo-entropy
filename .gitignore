@@ -1,0 +1,11 @@
+node_modules/
+dist/
+*.js.map
+
+*.tsbuildinfo
+
+*.log
+*.env
+
+.DS_Store
+Thumbs.db
