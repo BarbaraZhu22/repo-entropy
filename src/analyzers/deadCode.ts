@@ -10,19 +10,12 @@ export async function analyze(
   const sourceFiles = fullProject
     .getSourceFiles()
     .filter((sf) => targetSet.has(sf.getFilePath().replace(/\\/g, "/")));
-  const total = sourceFiles.length;
   const allSourceFiles = fullProject.getSourceFiles();
 
-  for (let i = 0; i < sourceFiles.length; i++) {
-    const sf = sourceFiles[i];
-    const pct = Math.round(((i + 1) / total) * 100);
-    process.stdout.write(
-      `\r  [${pct}%] ${i + 1}/${total} files checked for dead code`
-    );
+  for (const sf of sourceFiles) {
     findings.push(...detectUnusedImports(sf));
     findings.push(...detectUnusedExports(sf, allSourceFiles));
   }
-  if (total > 0) process.stdout.write("\n");
 
   return findings;
 }

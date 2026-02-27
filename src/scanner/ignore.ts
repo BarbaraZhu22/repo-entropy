@@ -32,7 +32,6 @@ export function loadIgnorePatterns(rootDir: string): string[] {
       }
     }
 
-    console.log(`  Loaded ${name} (${lines.length} lines)`);
   }
 
   return patterns;
