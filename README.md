@@ -1,24 +1,24 @@
-# repo-entropy-analyzer
+# repo-entropy
 
-[![npm version](https://img.shields.io/npm/v/repo-entropy-analyzer)](https://www.npmjs.com/package/repo-entropy-analyzer)
-[![license](https://img.shields.io/npm/l/repo-entropy-analyzer)](./LICENSE)
+[![npm version](https://img.shields.io/npm/v/repo-entropy)](https://www.npmjs.com/package/repo-entropy)
+[![license](https://img.shields.io/npm/l/repo-entropy)](./LICENSE)
 
 A CLI tool that scans a repository and generates a markdown report describing **code entropy** — dead code, duplications, excessive complexity, and bloated files — problems commonly introduced by AI-generated code.
 
 ## Why?
 
-AI coding assistants often introduce subtle quality issues: unused imports, duplicated logic across files, deeply nested control flow, and files that keep growing. These accumulate over time and degrade your codebase. `repo-entropy-analyzer` detects them and gives you an actionable report.
+AI coding assistants often introduce subtle quality issues: unused imports, duplicated logic across files, deeply nested control flow, and files that keep growing. These accumulate over time and degrade your codebase. `repo-entropy` detects them and gives you an actionable report.
 
 ## Install
 
 ```bash
-npm install -g repo-entropy-analyzer
+npm install -g repo-entropy
 ```
 
 Or run directly with `npx`:
 
 ```bash
-npx repo-entropy-analyzer analyze .
+npx repo-entropy analyze .
 ```
 
 ## Usage

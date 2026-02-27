@@ -1,5 +1,5 @@
 {
-  "name": "repo-entropy-analyzer",
+  "name": "repo-entropy",
   "version": "0.1.0",
   "description": "CLI tool that scans a repository and generates a markdown report describing code entropy problems caused by AI-generated code",
   "main": "dist/index.js",
@@ -33,11 +33,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/user/repo-entropy-analyzer"
+    "url": "https://github.com/user/repo-entropy"
   },
-  "homepage": "https://github.com/user/repo-entropy-analyzer#readme",
+  "homepage": "https://github.com/user/repo-entropy#readme",
   "bugs": {
-    "url": "https://github.com/user/repo-entropy-analyzer/issues"
+    "url": "https://github.com/user/repo-entropy/issues"
   },
   "engines": {
     "node": ">=18"
