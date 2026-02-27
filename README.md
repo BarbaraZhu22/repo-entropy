@@ -7,7 +7,7 @@ A CLI tool that scans a repository and generates a markdown report describing **
 
 ## Why?
 
-AI coding assistants often introduce subtle quality issues: unused imports, duplicated logic across files, deeply nested control flow, and files that keep growing. These accumulate over time and degrade your codebase. `repo-entropy` detects them and gives you an actionable report.
+AI coding assistants often introduce subtle quality issues: unused imports, duplicated logic across files, deeply nested control flow, and files that keep growing. These accumulate over time and degrade your codebase. `repo-entropy` explores the idea of code entropy,detects them and gives you an actionable report.
 
 ## Install
 
