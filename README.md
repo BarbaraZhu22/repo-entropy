@@ -5,7 +5,7 @@
 [![npm version](https://img.shields.io/npm/v/repo-entropy)](https://www.npmjs.com/package/repo-entropy)
 [![license](https://img.shields.io/npm/l/repo-entropy)](./LICENSE)
 
-A CLI tool that scans a repository and generates a markdown report describing **code entropy** — dead code, duplications, excessive complexity, and bloated files — problems commonly introduced by AI-generated code.
+A CLI tool that scans a **JavaScript / TypeScript** repository and generates a markdown report describing **code entropy** — dead code, duplications, excessive complexity, and bloated files — problems commonly introduced by AI-generated code.
 
 ## Why?
 
