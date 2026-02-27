@@ -1,0 +1,13 @@
+src/
+*.ts
+!dist/**
+tsconfig.json
+.git/
+.gitignore
+repo-entropy.md
+node_modules/
+*.log
+*.env
+.DS_Store
+Thumbs.db
+entropy-report.md

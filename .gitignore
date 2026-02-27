@@ -9,3 +9,5 @@ dist/
 
 .DS_Store
 Thumbs.db
+
+entropy-report.md
