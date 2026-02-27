@@ -2,15 +2,27 @@ import { Project, SourceFile, SyntaxKind } from "ts-morph";
 import { Finding } from "../models/types";
 
 export async function analyze(
-  _files: string[],
-  project: Project
+  targetFiles: string[],
+  fullProject: Project
 ): Promise<Finding[]> {
   const findings: Finding[] = [];
+  const targetSet = new Set(targetFiles.map((f) => f.replace(/\\/g, "/")));
+  const sourceFiles = fullProject
+    .getSourceFiles()
+    .filter((sf) => targetSet.has(sf.getFilePath().replace(/\\/g, "/")));
+  const total = sourceFiles.length;
+  const allSourceFiles = fullProject.getSourceFiles();
 
-  for (const sourceFile of project.getSourceFiles()) {
-    findings.push(...detectUnusedImports(sourceFile));
-    findings.push(...detectUnusedExports(sourceFile));
+  for (let i = 0; i < sourceFiles.length; i++) {
+    const sf = sourceFiles[i];
+    const pct = Math.round(((i + 1) / total) * 100);
+    process.stdout.write(
+      `\r  [${pct}%] ${i + 1}/${total} files checked for dead code`
+    );
+    findings.push(...detectUnusedImports(sf));
+    findings.push(...detectUnusedExports(sf, allSourceFiles));
   }
+  if (total > 0) process.stdout.write("\n");
 
   return findings;
 }
@@ -49,7 +61,10 @@ function detectUnusedImports(sourceFile: SourceFile): Finding[] {
   return findings;
 }
 
-function detectUnusedExports(sourceFile: SourceFile): Finding[] {
+function detectUnusedExports(
+  sourceFile: SourceFile,
+  allSourceFiles: SourceFile[]
+): Finding[] {
   const findings: Finding[] = [];
   const filePath = sourceFile.getFilePath();
 
@@ -58,16 +73,27 @@ function detectUnusedExports(sourceFile: SourceFile): Finding[] {
     const name = fn.getName();
     if (!name) continue;
 
-    const identifiers = sourceFile
-      .getProject()
-      .getSourceFiles()
+    const usedInOtherFiles = allSourceFiles
       .filter((sf) => sf !== sourceFile)
-      .flatMap((sf) =>
-        sf.getDescendantsOfKind(SyntaxKind.Identifier)
-      )
-      .filter((id) => id.getText() === name);
+      .some((sf) =>
+        sf
+          .getDescendantsOfKind(SyntaxKind.Identifier)
+          .some((id) => id.getText() === name)
+      );
 
-    if (identifiers.length === 0) {
+    if (usedInOtherFiles) continue;
+
+    const fnStart = fn.getStart();
+    const fnEnd = fn.getEnd();
+    const usedInSameFile = sourceFile
+      .getDescendantsOfKind(SyntaxKind.Identifier)
+      .some(
+        (id) =>
+          id.getText() === name &&
+          (id.getStart() < fnStart || id.getStart() >= fnEnd)
+      );
+
+    if (!usedInSameFile) {
       findings.push({
         type: "dead-code",
         file: filePath,

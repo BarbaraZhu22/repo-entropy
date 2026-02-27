@@ -78,22 +78,18 @@ async function main() {
 
   if (longFiles.length > 0) {
     console.log(
-      `Analyzing dead code (${longFiles.length} long files only)...`
+      `Analyzing dead code (${longFiles.length} long files, searching across all ${files.length} files)...`
     );
-    const longProject = createProject(longFiles);
-    const dcFindings = await deadCode.analyze(longFiles, longProject);
-    for (let i = 0; i < dcFindings.length; i++) {
-      progress(i + 1, dcFindings.length, "dead-code findings");
-    }
+    const dcFindings = await deadCode.analyze(longFiles, allProject);
     findings.push(...dcFindings);
     console.log(
-      `\n  Found ${dcFindings.length} dead-code findings\n`
+      `  Found ${dcFindings.length} dead-code findings\n`
     );
 
     console.log(
       `Analyzing similar code (${longFiles.length} long files only)...`
     );
-    const simFindings = await similarity.analyze(longFiles, longProject);
+    const simFindings = await similarity.analyze(longFiles, allProject);
     findings.push(...simFindings);
     console.log(`  Found ${simFindings.length} similarity findings\n`);
   } else {
