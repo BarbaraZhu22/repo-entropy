@@ -108,6 +108,7 @@ async function main() {
 
   const findings: Finding[] = [];
   const project = createProject(files);
+  step(`project loaded (${files.length} sources)`);
 
   const lfFindings = await longFile.analyze(files, project);
   findings.push(...lfFindings);
@@ -118,11 +119,17 @@ async function main() {
   step(`deep nesting hotspots: ${dcFindings.length} issues`);
 
   if (longFiles.length > 0) {
-    const deadFindings = await deadCode.analyze(longFiles, project);
+    const deadFindings = await deadCode.analyze(longFiles, project, (i, total) => {
+      process.stdout.write(`\r  [${i}/${total}] detecting dead code\u2026`);
+    });
+    process.stdout.write("\r\x1B[K");
     findings.push(...deadFindings);
     step(`dead code: ${deadFindings.length} issues`);
 
-    const simFindings = await similarity.analyze(longFiles, project);
+    const simFindings = await similarity.analyze(longFiles, project, (i, total) => {
+      process.stdout.write(`\r  [${i}/${total}] finding duplicates\u2026`);
+    });
+    process.stdout.write("\r\x1B[K");
     findings.push(...simFindings);
     step(`duplicates: ${simFindings.length} issues`);
   } else {

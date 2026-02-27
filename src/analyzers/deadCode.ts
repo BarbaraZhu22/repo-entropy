@@ -3,7 +3,8 @@ import { Finding } from "../models/types";
 
 export async function analyze(
   targetFiles: string[],
-  fullProject: Project
+  fullProject: Project,
+  onProgress?: (current: number, total: number) => void
 ): Promise<Finding[]> {
   const findings: Finding[] = [];
   const targetSet = new Set(targetFiles.map((f) => f.replace(/\\/g, "/")));
@@ -12,7 +13,9 @@ export async function analyze(
     .filter((sf) => targetSet.has(sf.getFilePath().replace(/\\/g, "/")));
   const allSourceFiles = fullProject.getSourceFiles();
 
-  for (const sf of sourceFiles) {
+  for (let i = 0; i < sourceFiles.length; i++) {
+    onProgress?.(i + 1, sourceFiles.length);
+    const sf = sourceFiles[i];
     findings.push(...detectUnusedImports(sf));
     findings.push(...detectUnusedExports(sf, allSourceFiles));
   }

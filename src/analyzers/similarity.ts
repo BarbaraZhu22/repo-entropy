@@ -9,12 +9,16 @@ interface FunctionEntry {
 
 export async function analyze(
   _files: string[],
-  project: Project
+  project: Project,
+  onProgress?: (current: number, total: number) => void
 ): Promise<Finding[]> {
   const findings: Finding[] = [];
   const hashMap = new Map<string, FunctionEntry[]>();
+  const sourceFiles = project.getSourceFiles();
 
-  for (const sourceFile of project.getSourceFiles()) {
+  for (let i = 0; i < sourceFiles.length; i++) {
+    onProgress?.(i + 1, sourceFiles.length);
+    const sourceFile = sourceFiles[i];
     const filePath = sourceFile.getFilePath();
 
     for (const fn of sourceFile.getFunctions()) {
